@@ -3,7 +3,7 @@ const db = require('../Database/connection');
 
 module.exports = {
     async index( req, res){
-        db.connect();
+    
       try {
           const results = await  db.query('SELECT * FROM todo');
           console.log(results.rows);
@@ -14,7 +14,7 @@ module.exports = {
     },
 
     async store(req, res){
-        db.connect();
+       
         try {
             const {todo} = req.body;
             await db.query(`INSERT INTO todo(todo) VALUES($1)`, [todo]);

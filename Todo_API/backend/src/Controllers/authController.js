@@ -52,33 +52,32 @@ module.exports = {
                     }
                 });
 
-            
+        },
 
-            
-            
-             
-            
-            
-
-    },
+    //AUTHENTICATION
 
     async store(req, res){
 
-        const {email, password} = req.body;
-
-
-        const user = await db.query("SELECT * FROM users WHERE email=$1 AND password=$2",[email , password]);
-
-        if(!user){
-            return res.status(400).send({error: "User Not Found"});
-        }else{
-            return res.status(200).json({message:"Loggin"})
-        }
-     
-
-           
+       
+            let {email, password} = req.body;
+            db.query("SELECT * FROM users WHERE email = $1", [email],(error, results) =>{
+                if(results.rows[0]){
+                    bcrypt.compare(password, results.rows[0].password, (err, result) =>{
+                        if(result){
+                            res.json({message:"password matchs"})
+                        }else{
+                            res.json({message:"password  does not matchs"})
+                        }
+                    });
+                }else{
+                    res.json({message:"user not found"})
+                }
+            });
         
-           
-
+         
+        
+    
     }
-};
+
+
+}
