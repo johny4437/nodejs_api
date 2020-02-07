@@ -3,6 +3,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const authConfig = require('../Config/authConfig');
 
 
 
@@ -80,7 +81,7 @@ module.exports = {
                     res.json({message:"user not found"})
                 }
 
-                const token = jwt.sign({id: results.rows[0].id},"671a0da0ba061c98de801409dbc57d7e",{
+                const token = jwt.sign({id: results.rows[0].id},authConfig.secret,{
                     expiresIn:86400
                 });
                 console.log(token);
