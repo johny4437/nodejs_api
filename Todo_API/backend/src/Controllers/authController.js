@@ -3,7 +3,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const authConfig = require('../Config/auth');
+
 
 
 module.exports = {
@@ -36,13 +36,13 @@ module.exports = {
    // REGISTRATION OF USERS
     async index( req, res){
             var {name, email, password} = req.body;
-
+            // AQUI É ONDE O PASSWORD É CRIPTOGRAFADO
                 bcrypt.hash(password, 8, (err, hash)=>{
                     if(err){
                         console.log("ERROR");
                     }else{
                         password = hash;
-                        //res.json(password)
+                        //DEPOIS DE CRIPTOGRAFAR O PASSWORD A INSERÇÂO É FEITA NO DB.
                         db.query("INSERT INTO users(name, email, password) VALUES($1, $2, $3 )",[name, email, password], (err, results)=>{
                             if(err){
                                 console.log("ERROR TO INSERT..")
@@ -50,10 +50,14 @@ module.exports = {
                                 console.log("INSERTED")
                                 res.json({message:"Inserted"});
                             }
+                            
                         })
                     }
                 });
-          
+
+                
+
+
         },
 
     //AUTHENTICATION
