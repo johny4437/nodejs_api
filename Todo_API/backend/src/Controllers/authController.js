@@ -2,6 +2,8 @@ const db = require('../Database/connection');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const authConfig = require('../Config/auth');
 
 
 module.exports = {
@@ -51,7 +53,7 @@ module.exports = {
                         })
                     }
                 });
-
+          
         },
 
     //AUTHENTICATION
@@ -60,11 +62,12 @@ module.exports = {
 
        
             let {email, password} = req.body;
-            db.query("SELECT * FROM users WHERE email = $1", [email],(error, results) =>{
+            db.query("SELECT * FROM users WHERE email = $1 ", [email],(error, results) =>{
                 if(results.rows[0]){
                     bcrypt.compare(password, results.rows[0].password, (err, result) =>{
                         if(result){
-                            res.json({message:"password matchs"})
+                            res.json({message:"password matchs",});
+                            
                         }else{
                             res.json({message:"password  does not matchs"})
                         }
@@ -72,7 +75,19 @@ module.exports = {
                 }else{
                     res.json({message:"user not found"})
                 }
+
+                const token = jwt.sign({id: results.rows[0].id},"671a0da0ba061c98de801409dbc57d7e",{
+                    expiresIn:86400
+                });
+                console.log(token);
+
+               
+                
+                 
             });
+
+           
+
         
          
         
