@@ -3,6 +3,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 const authConfig = require('../Config/authConfig');
 
 
@@ -92,6 +93,8 @@ module.exports = {
             });
         },
 
+
+    //WHEN THE USER FORGOT HIS PASSWORD
         async forgotPassword(req, res){
 
             const { email } = req.body;
@@ -104,7 +107,10 @@ module.exports = {
                 }
             });
 
+            const token = crypto.randomBytes(20).toString('hex');
 
+            const now = new Date();
+            now.setHours(now.getHours() + 1);
 
         }
 
