@@ -4,7 +4,7 @@ const authMiddleware  = require('../Middlewares/auth');
 module.exports = {
 
     async index(req, res){
-        res.json({ok:true});
+        res.json({ok:true, user: req.userId});
 
     }
 }

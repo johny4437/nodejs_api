@@ -90,14 +90,23 @@ module.exports = {
                 
                  
             });
+        },
 
-           
+        async forgotPassword(req, res){
 
-        
-         
-        
-    
-    }
+            const { email } = req.body;
+
+            db.query("SELECT * FROM users WHERE email=$1", [email], (err, results) =>{
+                if(results.rows[0]){
+                    res.json("a link was sended");
+                }else{
+                    res.json("Email not exists");
+                }
+            });
+
+
+
+        }
 
 
 }
