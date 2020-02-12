@@ -12,6 +12,8 @@ const db = require('./connection');
         name  VARCHAR(250) UNIQUE NOT NULL,
         email VARCHAR(50) UNIQUE NOT NULL,
         password VARCHAR(250) UNIQUE NOT NULL,
+        passwordResetToken VARCHAR(250),
+        passwordRestExpires TIMESTAMP  DEFAULT CURRENT_TIMESTAMP,
         created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )`);
 

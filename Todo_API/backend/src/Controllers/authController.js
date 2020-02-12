@@ -1,6 +1,4 @@
 const db = require('../Database/connection');
-const passport = require('passport');
-const LocalStrategy = require('passport-local');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
@@ -111,6 +109,9 @@ module.exports = {
 
             const now = new Date();
             now.setHours(now.getHours() + 1);
+
+        
+                   db.query("INSERT INTO users (passwordresettoken, passwordrestexpires) VALUES($1,$2) WHERE email = ",[ token,  now]);
 
         }
 
