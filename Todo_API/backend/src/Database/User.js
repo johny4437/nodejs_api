@@ -15,7 +15,14 @@ const db = require('./connection');
         passwordResetToken VARCHAR(250),
         passwordRestExpires TIMESTAMP  DEFAULT CURRENT_TIMESTAMP,
         created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )`);
+        );
+        CREATE TABLE todo(
+            id SERIAL PRIMARY KEY,
+            todo TEXT,
+            created_at TIMESTAMP,
+            id_user INTEGER REFERENCES users(id)
+        );`);
+        //db.query(``);
 
          db.end()
 
