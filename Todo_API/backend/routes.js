@@ -12,7 +12,7 @@ routes.post('/addtask', todo.store);
 routes.get('/users/:id', auth.getUsersById);
 routes.get('/users/', auth.getUsers);
 routes.post('/registration', auth.index);
-routes.post('/pass', auth.store);
+routes.post('/login', auth.store);
 routes.post('/forgot_password',auth.forgotPassword);
 
 // middleware
