@@ -16,10 +16,11 @@ const db = require('./connection');
         passwordRestExpires TIMESTAMP  DEFAULT CURRENT_TIMESTAMP,
         created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         );
-        CREATE TABLE todo(
+        CREATE TABLE tasks(
             id SERIAL PRIMARY KEY,
-            todo TEXT,
-            created_at TIMESTAMP,
+            title TEXT,
+            description TEXT,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             id_user INTEGER REFERENCES users(id)
         );`);
         //db.query(``);

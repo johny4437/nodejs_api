@@ -17,6 +17,8 @@ routes.post('/forgot_password',auth.forgotPassword);
 
 // middleware
 routes.use(authMiddleware);
-routes.get('/midd', project.index);
+routes.get('/', project.index);
+routes.post('/projects', project.store);
+
 
 module.exports = routes;

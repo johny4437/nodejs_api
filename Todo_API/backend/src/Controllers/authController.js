@@ -104,9 +104,7 @@ module.exports = {
 
                      const now = new Date();
                     now.setHours(now.getHours() + 1);
-
-        
-                   db.query("UPDATE users SET passwordresettoken = $1, passwordrestexpires = $2 WHERE email = $3 " ,[ token,  now, email]);
+                    db.query("UPDATE users SET passwordresettoken = $1, passwordrestexpires = $2 WHERE email = $3 " ,[ token,  now, email]);
                 }else{
                     res.json("Email not exists");
                 }

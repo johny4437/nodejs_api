@@ -3,7 +3,7 @@ const db = require('./connection');
 
 function dropTables(){
     db.connect();
-    db.query(' DROP TABLE users');
+    db.query(' DROP TABLE users CASCADE');
     db.end()
 
     console.log('dbs dropped..')
