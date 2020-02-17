@@ -100,18 +100,19 @@ module.exports = {
             db.query("SELECT * FROM users WHERE email=$1", [email], (err, results) =>{
                 if(results.rows[0]){
                     res.json("a link was sended");
+                    const token = crypto.randomBytes(20).toString('hex');
+
+                     const now = new Date();
+                    now.setHours(now.getHours() + 1);
+
+        
+                   db.query("UPDATE users SET passwordresettoken = $1, passwordrestexpires = $2 WHERE email = $3 " ,[ token,  now, email]);
                 }else{
                     res.json("Email not exists");
                 }
             });
 
-            const token = crypto.randomBytes(20).toString('hex');
-
-            const now = new Date();
-            now.setHours(now.getHours() + 1);
-
-        
-                   db.query("INSERT INTO users (passwordresettoken, passwordrestexpires) VALUES($1,$2) WHERE email = ",[ token,  now]);
+            
 
         }
 
